@@ -1,0 +1,15 @@
+[package]
+name = "kaimetsu"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rodio = { version = "0.21.1", default-features = false, features = ["mp3", "playback"] }
+rust-embed = { version = "8.9.0", default-features = false }
+
+[profile.release]
+opt-level = "z"     # Optimize for size.
+lto = true          # Enable Link Time Optimization
+codegen-units = 1   # Reduce number of codegen units to increase optimizations.
+panic = "abort"     # Abort on panic
+strip = true        # Automatically strip symbols from the binary.
