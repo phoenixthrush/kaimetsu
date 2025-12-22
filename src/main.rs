@@ -1,5 +1,7 @@
-use std::error::Error;
+#![windows_subsystem = "windows"]
+
 use rust_embed::RustEmbed;
+use std::error::Error;
 
 #[derive(RustEmbed)]
 #[folder = "assets/"]
@@ -12,7 +14,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let audio_file = Assets::get("audio.mp3").ok_or("audio.mp3 not found")?;
     let cursor = std::io::Cursor::new(audio_file.data);
     let looped_decoder = rodio::Decoder::new_looped(cursor)?;
-    
+
     sink.append(looped_decoder);
     sink.sleep_until_end(); // loops forever
 
